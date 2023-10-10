@@ -29,12 +29,15 @@ export class ItemsController {
     return this.itemService.create(createItemDto);
   }
   @Delete(':id')
-  delete(@Param('id') id): string {
-    return `delete ${id}`;
+  async delete(@Param('id') id): Promise<Item> {
+    return this.itemService.delete(id);
   }
 
   @Put(':id')
-  update(@Param('id') id, @Body() updateItemDto: CreateItemDto): string {
-    return ` update ${id} name:${updateItemDto.name}`;
+  async update(
+    @Param('id') id,
+    @Body() updateItemDto: CreateItemDto,
+  ): Promise<Item> {
+    return this.itemService.update(id, updateItemDto);
   }
 }
