@@ -15,17 +15,18 @@ import { Item } from './interfaces/item.interface';
 export class ItemsController {
   constructor(private readonly itemService: ItemsService) {}
   @Get()
-  findAll(): Item[] {
+  async findAll(): Promise<Item[]> {
     return this.itemService.findAll();
   }
   @Get(':id')
-  findOne(@Param('id') id): Item {
+  async findOne(@Param('id') id): Promise<Item> {
     return this.itemService.findOne(id);
   }
 
   @Post()
-  create(@Body() createItemDto: CreateItemDto): string {
-    return ` Name:${createItemDto.name}, Desc:${createItemDto.description}, quantity:${createItemDto.qty}`;
+  async create(@Body() createItemDto: CreateItemDto): Promise<Item> {
+    console.log('send data');
+    return this.itemService.create(createItemDto);
   }
   @Delete(':id')
   delete(@Param('id') id): string {
